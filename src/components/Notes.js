@@ -5,9 +5,23 @@ class Notes extends Component {
 
     render() {
         return (
-            <div>
-                <h2>Notes</h2>
-                <Note/>
+            <div className='ui container notes'>
+                <h2 className="ui horizontal divider header">
+                    <i className="paw icon"></i>
+                    Notes
+                </h2>
+
+                <button className="ui right floated basic violet button">
+                    添加笔记
+                </button>
+                <div className="ui divided items">
+                    <Note/>
+                    <span className="ui small disabled header">
+                        还没有笔记，请按下‘添加笔记’按钮
+                    </span>
+                </div>
+               
+                
             </div>
         )
     }

@@ -4,8 +4,12 @@ class Editor extends Component {
 
     render () {
         return (
-            <div>
-                <h4>edit</h4>
+            <div className="ui form">
+                <div className="field">
+                    <textarea 
+                        rows="5"
+                        placeholder="写点东西.."></textarea>
+                </div>
             </div>
         )
     }
