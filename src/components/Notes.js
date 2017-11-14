@@ -35,12 +35,58 @@ class Notes extends Component {
         })
     }
 
+    createEntity = () => {
+        loadCollection('notes')
+            .then((collection) => {
+                const entity = collection.insert({
+                    body: ''
+                })
+
+                db.saveDatabase();
+                this.setState((prevState) => {
+                    const _entities = prevState.entities;
+                    _entities.unshift(entity);
+                    return {
+                        entities: _entities
+                    }
+                })
+            })
+    }
+    destoryEntity = (entity) => {
+
+        
+        // var _entities = this.state.entities.filter((_entity) => {
+        //     return _entity.$loki !== entity.$loki;
+        // });
+
+        // this.setState({
+        //     entities: _entities
+        // });
+        
+
+        this.setState((preState) => {
+            return {
+                entities: preState.entities.filter(_entity => (_entity.$loki !== entity.$loki))
+            };
+        })
+
+        console.log(this.state.entities);
+
+        loadCollection('notes')
+            .then((collection) => {
+                collection.remove(entity);
+                db.saveDatabase();
+            })
+
+
+    }
+
     render() {
 
         const entities = this.state.entities;
         const noteItems = entities.map((entity) => {
                 return (
-                    <Note key={entity.$loki} entity={entity}></Note>
+                    <Note key={entity.$loki} entity={entity} destoryEntity={this.destoryEntity}></Note>
                 )
             }
         );
@@ -52,7 +98,7 @@ class Notes extends Component {
                     Notes
                 </h2>
 
-                <button className="ui right floated basic violet button">
+                <button className="ui right floated basic violet button" onClick={this.createEntity}>
                     添加笔记
                 </button>
                 <div className="ui divided items">
